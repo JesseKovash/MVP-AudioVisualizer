@@ -24,11 +24,10 @@ function Canvas() {
     analyser = audioContext.createAnalyser();
     newAudioSource.connect(analyser);
     analyser.connect(audioContext.destination);
-    analyser.fftSize = 64;
+    analyser.fftSize = 128;
     const bufferLength = analyser.frequencyBinCount;
     let dataArray = new Uint8Array(bufferLength);
     const barWidth = (canvasElement.width / bufferLength);
-    console.log(barWidth)
     let barHeight;
     let x;
     const animate = function () {
@@ -42,11 +41,14 @@ function Canvas() {
         const red = 250 * (i/bufferLength);
         const green = 0;
         const blue = barHeight + (2 * (i/bufferLength));
-        ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
-        // ctx.fillStyle = 'yellow';
-        // console.log('bh: ', barHeight, 'bw: ', barWidth)
-        ctx.fillRect(x, canvasElement.height - barHeight, barWidth, barHeight);
-        // console.log('x: ', x, 'y: ', canvasHeight - barHeight )
+        //bars
+        // ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
+        // ctx.fillRect(x, canvasElement.height - barHeight, barWidth, barHeight);
+        ctx.beginPath();
+        ctx.arc(x, canvasElement.height - barHeight, barWidth * 0.5, 0, 2*Math.PI);
+        ctx.stroke();
+        ctx.fillStyle = "black";
+        ctx.fill();
         x += barWidth + 1;
       }
       requestAnimationFrame(animate)
