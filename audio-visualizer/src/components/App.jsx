@@ -5,7 +5,6 @@ import Canvas from "./canvas"
 function App() {
   return (
     <div className="App">
-     This is connected
      <Canvas />
     </div>
   );
