@@ -23,27 +23,50 @@ h1 {
   border-radius: 5px;
 }
 
-.show-tunes-button, .save-tunes-button, .stop-tunes-button  {
+.show-tunes-button, .save-tunes-button, .stop-tunes-button, .modal-button  {
   height: 35px;
   width: 200px;
   margin: 10px 10px 10px 0;
   border-radius: 5px;
-
+  border: none;
 }
 
-.show-tunes-button:hover, .save-tunes-button:hover, .stop-tunes-button:hover {
+.show-tunes-button:hover, .save-tunes-button:hover, .stop-tunes-button:hover, .modal-button:hover {
   background-color: black;
   border: 1px solid white;
   color: white;
   cursor: pointer;
 }
 
+.modal-button {
+  border: 1px solid black;
+}
 .canvas-buttons {
 
 }
 
-.file-container{
+.canvas-container {
+  position: relative;
+}
 
+.save-modal-container {
+  background-color: white;
+  height: 150px;
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  outline: solid black 1px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 1px 1px 16px 1px grey;
+}
+
+.modal-input{
+width: 75%;
 }
 .file-options {
 

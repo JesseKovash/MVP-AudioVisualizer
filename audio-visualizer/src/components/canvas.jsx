@@ -1,4 +1,6 @@
 import App from './App.jsx';
+import SaveModal from './savemodal.jsx';
+import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 
 function Canvas(props) {
@@ -7,11 +9,28 @@ function Canvas(props) {
   const audioControlsRef = useRef(null);
   const audioElement = document.getElementById("audioControls");
   const [audioNode, setaudioNode] = useState(false);
+  const [saveMode, setSaveMode] = useState(false);
 
+  const enterName = function(input) {
+    if (saveMode) {
+      axios.post('http://localhost:2000/new_settings', input, { headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000'
+      } })
+        .then((results) => {
+          setSaveMode(false);
+        })
+        .catch((err)=> {
+          console.log(err)
+        })
+    } else {
+      setSaveMode(true);
+    }
+  }
   let myReq;
   let eraseContext;
   let analyser = window.jk_visualizer_analyser;
   let audioContext = window.jk_audioContext;
+
 
   const showMeTheTunes = function () {
     const canvasElement = document.getElementById("canvas");
@@ -98,7 +117,6 @@ function Canvas(props) {
   }
 
   const stopAnimation = function (req, ctx) {
-    console.log('inside stop tunes')
     audioElement.pause();
     audioElement.currentTime = 0;
     window.cancelAnimationFrame(req)
@@ -111,11 +129,14 @@ function Canvas(props) {
       className="canvas-container"
       ref={canvasContainerRef}
     >
-      {/* <input
-        type='file'
-        accept="audio/*"
-        onChange={(e) => {updateAudioFiles(e) }}
-      ></input> */}
+      <SaveModal
+        enterName = {enterName.bind(this)}
+        saveMode = {saveMode}
+        visualType={props.visualType}
+        fftChoice={props.fftChoice}
+        colorChoice={props.colorChoice}
+        backgroundChoice={props.backgroundChoice}
+        />
       <audio
         id="audioControls"
         // controls
@@ -124,9 +145,9 @@ function Canvas(props) {
         onEnded={() => stopAnimation(window.jk_req, window.jk_ctx)}
       ></audio>
       <div className="canvas-buttons">
-      <button className="show-tunes-button" onClick={showMeTheTunes}>SHOW ME THE TUNES</button>
-      <button className="save-tunes-button" onClick={()=>{}}>SAVE THE TUNES</button>
-      <button className="stop-tunes-button" onClick={(req, ctx)=>(stopAnimation(req, ctx))}>STOP THE TUNES</button>
+        <button className="show-tunes-button" onClick={showMeTheTunes}>SHOW ME THE TUNES</button>
+        <button className="stop-tunes-button" onClick={(req, ctx) => (stopAnimation(req, ctx))}>STOP THE TUNES</button>
+        <button className="save-tunes-button" onClick={enterName}>SAVE SETTINGS</button>
       </div>
       <canvas
         id="canvas"
