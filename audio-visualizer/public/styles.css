@@ -7,14 +7,14 @@ h1 {
   color: white;
 }
 
-.buttons-container, .width, .color, .file-container, .shape, .fill {
+.buttons-container, .width, .color, .file-container, .shape, .fill, .file-upload-container {
   color: white;
   font-size: 1.5rem;
   position: relative;
   padding: 5px 0;
 }
 
-.type-select-list, .fft-select-list, .color-select-list, .file-options, .background-select-list, .shape-select-list, .fill-select-list {
+.type-select-list, .fft-select-list, .color-select-list, .file-options, .background-select-list, .shape-select-list, .fill-select-list, .file-upload-button {
   position: absolute;
   color: black;
   left: 200px;

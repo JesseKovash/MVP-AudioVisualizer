@@ -69,20 +69,29 @@ function Canvas(props) {
       analyser.getByteFrequencyData(dataArray);
       //left half
       for (let i = 0; i < bufferLength; i++) {
+        let red, green, blue;
         barHeight = dataArray[i] * 1.5;
-        const red = 250 * (i / bufferLength);
-        const green = 0;
-        const blue = barHeight + (2 * (i / bufferLength));
+        if (props.colorChoice === 'dynamic') {
+          red = props.red * ((i) / bufferLength * 1.5);
+          // green = props.green;
+          green = props.green * ((i) / bufferLength * 1.5);
+          // blue = barHeight + (5 * (i / bufferLength));
+          blue = props.blue * ((i) / bufferLength * 1.5)
+        } else {
+          red = props.red;
+          green = props.green;
+          blue = props.blue;
+        }
         //solid bars
         if (props.visualType === 'bars' && props.fillChoice === 'solid') {
           // ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
-          ctx.fillStyle = props.colorChoice;
+          ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
           ctx.fillRect(canvasElement.width/2 - x, canvasElement.height - barHeight, barWidth, barHeight);
         }
         //hollowbars
         if (props.visualType === 'bars' && props.fillChoice === 'hollow'){
           ctx.rect(canvasElement.width/2 - x, canvasElement.height - barHeight, barWidth, barHeight);
-          ctx.strokeStyle = props.colorChoice;;
+          ctx.strokeStyle = "rgb(" + red + "," + green + "," + blue + ")";
           ctx.stroke();
         }
 
@@ -90,10 +99,10 @@ function Canvas(props) {
         if (props.visualType === 'circles') {
           ctx.beginPath();
           ctx.arc(canvasElement.width/2 - x, canvasElement.height - barHeight, barWidth * 0.5, 0, 2 * Math.PI);
-          ctx.strokeStyle = props.colorChoice;
+          ctx.strokeStyle = "rgb(" + red + "," + green + "," + blue + ")";
           ctx.stroke();
           if (props.fillChoice === 'solid') {
-            ctx.fillStyle = props.colorChoice;
+            ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
             ctx.fill();
           }
         }
@@ -116,20 +125,29 @@ function Canvas(props) {
 
       //right half
       for (let i = 0; i < bufferLength; i++) {
+        let red, green, blue;
         barHeight = dataArray[i] * 1.5;
-        const red = 250 * (i / bufferLength);
-        const green = 0;
-        const blue = barHeight + (2 * (i / bufferLength));
+        if (props.colorChoice === 'dynamic') {
+          red = props.red * ((i + 2) / bufferLength * 2);
+          // green = props.green;
+          green = props.green * ((i + 2) / bufferLength * 2);
+          // blue = barHeight + (5 * (i / bufferLength));
+          blue = props.blue * ((i + 2) / bufferLength * 2)
+        } else {
+          red = props.red;
+          green = props.green;
+          blue = props.blue;
+        }
         //bars
         if (props.visualType === 'bars' && props.fillChoice === 'solid') {
-          // ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
-          ctx.fillStyle = props.colorChoice;
+          ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
+          // ctx.fillStyle = props.colorChoice;
           ctx.fillRect(x, canvasElement.height - barHeight, barWidth, barHeight);
         }
         //hollowbars
         if (props.visualType === 'bars' && props.fillChoice === 'hollow'){
           ctx.rect(x, canvasElement.height - barHeight, barWidth, barHeight);
-          ctx.strokeStyle = props.colorChoice;;
+          ctx.strokeStyle = "rgb(" + red + "," + green + "," + blue + ")";
           ctx.stroke();
         }
 
@@ -137,10 +155,10 @@ function Canvas(props) {
         if (props.visualType === 'circles') {
           ctx.beginPath();
           ctx.arc(x, canvasElement.height - barHeight, barWidth * 0.5, 0, 2 * Math.PI);
-          ctx.strokeStyle = props.colorChoice;
+          ctx.strokeStyle = "rgb(" + red + "," + green + "," + blue + ")";
           ctx.stroke();
           if (props.fillChoice === 'solid') {
-            ctx.fillStyle = props.colorChoice;
+            ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
             ctx.fill();
           }
         }

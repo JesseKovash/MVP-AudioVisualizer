@@ -9,7 +9,7 @@ function App() {
   const [audioFiles, setAudioFiles] = useState([]);
   const [visualType, setVisualType] = useState('bars');
   const [fftChoice, setfftChoice] = useState(64);
-  const [colorChoice, setColorChoice] = useState('black');
+  const [colorChoice, setColorChoice] = useState('solid');
   const [backgroundChoice, setBackgroundChoice] = useState('white');
   const [fillChoice, setfillChoice] = useState('solid');
   const [red, setRed] = useState(0);
@@ -57,7 +57,6 @@ function App() {
     if (e.target.name === 'blue') {
       setBlue(e.target.value)
     }
-    console.log(red, green, blue)
   }
   // const changeShape = function(e) {
   //   setShapeChoice(e.target.value);
@@ -83,13 +82,13 @@ function App() {
       <h1>SHOW ME THE TUNES</h1>
       <div className="file-options-container">
         <div className="file-upload-container">
+          ADD TUNES
           <input
             className="file-upload-button"
             type='file'
             accept="audio/*"
             onChange={(e) => { updateAudioFiles(e) }}
           ></input>
-
         </div>
         <div className="options-container">
           {fileOptions}
@@ -125,13 +124,8 @@ function App() {
               className="color-select-list"
               onChange={(e) => { changeColor(e) }}
             >
-              <option value="black">Black</option>
-              <option value="gray">Gray</option>
-              <option value="red">Red</option>
-              <option value="green">Green</option>
-              <option value="blue">Blue</option>
-              <option value="purple">Purple</option>
-              <option value="yellow">Yellow</option>
+              <option value="solid">Solid</option>
+              <option value="dynamic">Dynamic</option>
             </select>
           </div>
           <div className="color">
@@ -164,7 +158,7 @@ function App() {
             </select>
           </div> */}
           <div className="fill">
-            Choose fill
+            CHOOSE FILL
             <select
               name="fillSelect"
               className="fill-select-list"
@@ -221,6 +215,9 @@ function App() {
         colorChoice={colorChoice}
         backgroundChoice={backgroundChoice}
         fillChoice={fillChoice}
+        red={red}
+        green={green}
+        blue={blue}
       // shapeChoice={shapeChoice}
       />
     </div>
