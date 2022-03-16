@@ -58,7 +58,8 @@ function Canvas(props) {
     analyser.fftSize = props.fftChoice;
     const bufferLength = analyser.frequencyBinCount;
     let dataArray = new Uint8Array(bufferLength);
-    const barWidth = (canvasElement.width/2 / bufferLength);
+    const barWidth = ((canvasElement.width/2) / bufferLength);
+    console.log(canvasElement.width / 2, bufferLength, barWidth)
     let barHeight;
     let x;
 
@@ -72,17 +73,18 @@ function Canvas(props) {
         const red = 250 * (i / bufferLength);
         const green = 0;
         const blue = barHeight + (2 * (i / bufferLength));
-        //bars
-        if (props.visualType === 'bars') {
+        //solid bars
+        if (props.visualType === 'bars' && props.fillChoice === 'solid') {
           // ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
           ctx.fillStyle = props.colorChoice;
           ctx.fillRect(canvasElement.width/2 - x, canvasElement.height - barHeight, barWidth, barHeight);
         }
-
         //hollowbars
-        // ctx.rect(x, canvasElement.height - barHeight, barWidth, barHeight);
-        // ctx.strokeStyle = "black";
-        // ctx.stroke();
+        if (props.visualType === 'bars' && props.fillChoice === 'hollow'){
+          ctx.rect(canvasElement.width/2 - x, canvasElement.height - barHeight, barWidth, barHeight);
+          ctx.strokeStyle = props.colorChoice;;
+          ctx.stroke();
+        }
 
         // circles
         if (props.visualType === 'circles') {
@@ -90,8 +92,10 @@ function Canvas(props) {
           ctx.arc(canvasElement.width/2 - x, canvasElement.height - barHeight, barWidth * 0.5, 0, 2 * Math.PI);
           ctx.strokeStyle = props.colorChoice;
           ctx.stroke();
-          ctx.fillStyle = props.colorChoice;
-          ctx.fill();
+          if (props.fillChoice === 'solid') {
+            ctx.fillStyle = props.colorChoice;
+            ctx.fill();
+          }
         }
 
 
@@ -107,8 +111,9 @@ function Canvas(props) {
         //   ctx.stroke();
         //   ctx.strokeStyle = "black";
         //   ctx.stroke();
-        x += barWidth + 0.1;
+        x += barWidth;
       }
+
       //right half
       for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i] * 1.5;
@@ -116,16 +121,17 @@ function Canvas(props) {
         const green = 0;
         const blue = barHeight + (2 * (i / bufferLength));
         //bars
-        if (props.visualType === 'bars') {
+        if (props.visualType === 'bars' && props.fillChoice === 'solid') {
           // ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
           ctx.fillStyle = props.colorChoice;
           ctx.fillRect(x, canvasElement.height - barHeight, barWidth, barHeight);
         }
-
         //hollowbars
-        // ctx.rect(x, canvasElement.height - barHeight, barWidth, barHeight);
-        // ctx.strokeStyle = "black";
-        // ctx.stroke();
+        if (props.visualType === 'bars' && props.fillChoice === 'hollow'){
+          ctx.rect(x, canvasElement.height - barHeight, barWidth, barHeight);
+          ctx.strokeStyle = props.colorChoice;;
+          ctx.stroke();
+        }
 
         // circles
         if (props.visualType === 'circles') {
@@ -133,8 +139,10 @@ function Canvas(props) {
           ctx.arc(x, canvasElement.height - barHeight, barWidth * 0.5, 0, 2 * Math.PI);
           ctx.strokeStyle = props.colorChoice;
           ctx.stroke();
-          ctx.fillStyle = props.colorChoice;
-          ctx.fill();
+          if (props.fillChoice === 'solid') {
+            ctx.fillStyle = props.colorChoice;
+            ctx.fill();
+          }
         }
 
 
@@ -150,7 +158,7 @@ function Canvas(props) {
         //   ctx.stroke();
         //   ctx.strokeStyle = "black";
         //   ctx.stroke();
-        x += barWidth + 0.1;
+        x += barWidth;
       }
 
       myReq = requestAnimationFrame(animate);

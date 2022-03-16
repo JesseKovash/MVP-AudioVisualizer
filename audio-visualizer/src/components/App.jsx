@@ -11,6 +11,10 @@ function App() {
   const [fftChoice, setfftChoice] = useState(64);
   const [colorChoice, setColorChoice] = useState('black');
   const [backgroundChoice, setBackgroundChoice] = useState('white');
+  const [fillChoice, setfillChoice] = useState('solid');
+  const [red, setRed] = useState(0);
+  const [green, setGreen] = useState(0);
+  const [blue, setBlue] = useState(0)
   // const [shapeChoice, setShapeChoice] = useState('rectangle')
   let fileOptions;
 
@@ -34,8 +38,26 @@ function App() {
   const changeColor = function (e) {
     setColorChoice(e.target.value);
   }
-  const changeBackground = function(e) {
+
+  const changeBackground = function (e) {
     setBackgroundChoice(e.target.value);
+  }
+
+  const changeFill = function (e) {
+    setfillChoice(e.target.value);
+  }
+
+  const changeRGB = function (e) {
+    if (e.target.name === 'red') {
+      setRed(e.target.value)
+    }
+    if (e.target.name === 'green') {
+      setGreen(e.target.value)
+    }
+    if (e.target.name === 'blue') {
+      setBlue(e.target.value)
+    }
+    console.log(red, green, blue)
   }
   // const changeShape = function(e) {
   //   setShapeChoice(e.target.value);
@@ -49,9 +71,9 @@ function App() {
       fileContainer.push(<option value={index} key={index}>{oneFile[0]}</option>);
     })
     fileOptions =
-    <div className="file-container">
-      MY FILES
-      <select className="file-options">{fileContainer}</select>
+      <div className="file-container">
+        MY FILES
+        <select className="file-options">{fileContainer}</select>
 
       </div>
   }
@@ -70,7 +92,7 @@ function App() {
 
         </div>
         <div className="options-container">
-            {fileOptions}
+          {fileOptions}
           <div className="buttons-container">
             STYLE
             <select
@@ -141,7 +163,55 @@ function App() {
               <option value="round">Round</option>
             </select>
           </div> */}
-          {/* <div className="width">Choose fill</div> */}
+          <div className="fill">
+            Choose fill
+            <select
+              name="fillSelect"
+              className="fill-select-list"
+              onChange={(e) => { changeFill(e) }}
+            >
+              <option value="solid">Solid</option>
+              <option value="hollow">Hollow</option>
+            </select>
+          </div>
+          <div>
+            <label className="color-slider-label color-slider-label-red">Red</label>
+            <input
+              className="color-slider-bar"
+              name="red"
+              id="typeinp"
+              type="range"
+              min="0"
+              max="250"
+              step="1"
+              onChange={(e)=>{changeRGB(e)}}
+            ></input>
+            <p className="color-values">{red}</p>
+            <label className="color-slider-label">Green</label>
+            <input
+              className="color-slider-bar"
+              name="green"
+              id="typeinp"
+              type="range"
+              min="0"
+              max="250"
+              step="1"
+              onChange={(e)=>{changeRGB(e)}}
+            ></input>
+            <p className="color-values">{green}</p>
+            <label className="color-slider-label">Blue</label>
+            <input
+              className="color-slider-bar"
+              name="blue"
+              id="typeinp"
+              type="range"
+              min="0"
+              max="250"
+              step="1"
+              onChange={(e)=>{changeRGB(e)}}
+            ></input>
+            <p className="color-values">{blue}</p>
+          </div>
         </div>
       </div>
       <Canvas
@@ -150,7 +220,8 @@ function App() {
         fftChoice={fftChoice}
         colorChoice={colorChoice}
         backgroundChoice={backgroundChoice}
-        // shapeChoice={shapeChoice}
+        fillChoice={fillChoice}
+      // shapeChoice={shapeChoice}
       />
     </div>
   );
