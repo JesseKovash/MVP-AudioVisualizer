@@ -7,19 +7,39 @@ h1 {
   color: white;
 }
 
-.buttons-container, .width, .color, .file-container {
+.buttons-container, .width, .color, .file-container, .shape {
   color: white;
   font-size: 1.5rem;
   position: relative;
   padding: 5px 0;
 }
 
-.type-select-list, .fft-select-list, .color-select-list, .file-options {
+.type-select-list, .fft-select-list, .color-select-list, .file-options, .background-select-list, .shape-select-list {
   position: absolute;
   color: black;
-  left: 140px;
+  left: 200px;
   height: 1.5rem;
   width: 150px;
+  border-radius: 5px;
+}
+
+.show-tunes-button, .save-tunes-button, .stop-tunes-button  {
+  height: 35px;
+  width: 200px;
+  margin: 10px 10px 10px 0;
+  border-radius: 5px;
+
+}
+
+.show-tunes-button:hover, .save-tunes-button:hover, .stop-tunes-button:hover {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+}
+
+.canvas-buttons {
+
 }
 
 .file-container{
@@ -27,4 +47,8 @@ h1 {
 }
 .file-options {
 
+}
+
+#canvas {
+  background-color: white;
 }

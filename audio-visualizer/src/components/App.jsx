@@ -10,6 +10,8 @@ function App() {
   const [visualType, setVisualType] = useState('bars');
   const [fftChoice, setfftChoice] = useState(64);
   const [colorChoice, setColorChoice] = useState('black');
+  const [backgroundChoice, setBackgroundChoice] = useState('white');
+  // const [shapeChoice, setShapeChoice] = useState('rectangle')
   let fileOptions;
 
   const updateAudioFiles = function (e) {
@@ -32,6 +34,12 @@ function App() {
   const changeColor = function (e) {
     setColorChoice(e.target.value);
   }
+  const changeBackground = function(e) {
+    setBackgroundChoice(e.target.value);
+  }
+  // const changeShape = function(e) {
+  //   setShapeChoice(e.target.value);
+  // }
 
   if (audioFiles.length === 0) {
     fileOptions = null;
@@ -54,6 +62,7 @@ function App() {
       <div className="file-options-container">
         <div className="file-upload-container">
           <input
+            className="file-upload-button"
             type='file'
             accept="audio/*"
             onChange={(e) => { updateAudioFiles(e) }}
@@ -103,6 +112,35 @@ function App() {
               <option value="yellow">Yellow</option>
             </select>
           </div>
+          <div className="color">
+            BACKGROUND
+            <select
+              name="colorSelect"
+              className="background-select-list"
+              onChange={(e) => { changeBackground(e) }}
+            >
+              <option value="white">White</option>
+              <option value="black">Black</option>
+              <option value="gray">Gray</option>
+              <option value="red">Red</option>
+              <option value="green">Green</option>
+              <option value="blue">Blue</option>
+              <option value="purple">Purple</option>
+              <option value="yellow">Yellow</option>
+            </select>
+          </div>
+          {/* <div className="shape">
+            SHAPE
+            <select
+              name="shapeSelect"
+              className="shape-select-list"
+              onChange={(e) => { changeShape(e) }}
+            >
+              <option value="rectangle">Rectangle</option>
+              <option value="square">Square</option>
+              <option value="round">Round</option>
+            </select>
+          </div> */}
           {/* <div className="width">Choose fill</div> */}
         </div>
       </div>
@@ -111,6 +149,8 @@ function App() {
         visualType={visualType}
         fftChoice={fftChoice}
         colorChoice={colorChoice}
+        backgroundChoice={backgroundChoice}
+        // shapeChoice={shapeChoice}
       />
     </div>
   );

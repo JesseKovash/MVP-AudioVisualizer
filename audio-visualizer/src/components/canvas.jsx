@@ -1,40 +1,23 @@
 import App from './App.jsx';
 import { useEffect, useState, useRef } from 'react';
-// import { recordingOne, recordingTwo } from '../sampleAudio/recordings.js'
-// import { NewRecording } from '../sampleAudio/NewRecording.mp3'
+
 function Canvas(props) {
-  console.log('canvas rendering')
   const canvasContainerRef = useRef(null);
   const canvasRef = useRef(null);
   const audioControlsRef = useRef(null);
   const audioElement = document.getElementById("audioControls");
   const [audioNode, setaudioNode] = useState(false);
 
-  console.log("audioNode at render: ", audioNode)
-  // const [analyser, setanalyser] = useState();
   let myReq;
   let eraseContext;
-  // let audioNode;
   let analyser = window.jk_visualizer_analyser;
-  // let ctx;
   let audioContext = window.jk_audioContext;
-  // const [audioSrc, setAudioSrc] = useState();
-  // const [audioFiles, setAudioFiles] = useState([]);
 
-  // const updateAudioFiles = function(e) {
-  //   let uploadedFile = URL.createObjectURL(e.target.files[0]);
-  //   setAudioSrc(uploadedFile);
-  //   setAudioFiles([...audioFiles, uploadedFile])
-  // }
-  console.log('loading: ', analyser)
   const showMeTheTunes = function () {
-    console.log('infunction: ', props.visualType);
-    console.log("audioContext at start: ", audioContext)
     const canvasElement = document.getElementById("canvas");
-    // canvasElement.width = window.innerWidth * 0.6;
-    // canvasElement.height = window.innerHeight * 0.3;
-    canvasElement.width = 640;
-    canvasElement.height = 320;
+    canvasElement.width = canvasElement.offsetWidth || 640;
+    canvasElement.height = canvasElement.width * 0.56;
+    console.log(canvasElement.offsetWidth)
 
     const ctx = canvasElement.getContext("2d");
     window.jk_ctx = ctx;
@@ -45,18 +28,12 @@ function Canvas(props) {
       audioContext = window.jk_audioContext;
     }
     if (!audioNode) {
-      console.log('creating media element')
-      console.log('audioNode in 1: ', audioNode)
-      console.log('audioContext in 1: ', audioContext)
       let audioSource = audioContext.createMediaElementSource(audioElement);
-      // let newNode = audioContext.createAnalyser();
       window.jk_visualizer_analyser = audioContext.createAnalyser();
       analyser = window.jk_visualizer_analyser;
       audioSource.connect(analyser);
       analyser.connect(audioContext.destination);
-      // window.jk_visualizer_analyser = analyser;
       setaudioNode(true);
-      console.log('changedaudio: ', audioNode)
     }
 
     analyser.fftSize = props.fftChoice;
@@ -65,10 +42,8 @@ function Canvas(props) {
     const barWidth = (canvasElement.width / bufferLength);
     let barHeight;
     let x;
-    console.log('Before animate: ', props.visualType);
 
     const animate = function () {
-      console.log('in animate: ', props.visualType);
       ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
       x = 0;
       analyser.getByteFrequencyData(dataArray);
@@ -123,6 +98,9 @@ function Canvas(props) {
   }
 
   const stopAnimation = function (req, ctx) {
+    console.log('inside stop tunes')
+    audioElement.pause();
+    audioElement.currentTime = 0;
     window.cancelAnimationFrame(req)
     ctx?.clearRect(0, 0, 640, 320);
   }
@@ -145,12 +123,16 @@ function Canvas(props) {
         src={props.audioSrc}
         onEnded={() => stopAnimation(window.jk_req, window.jk_ctx)}
       ></audio>
-      <button onClick={showMeTheTunes}>Show me the sound</button>
+      <div className="canvas-buttons">
+      <button className="show-tunes-button" onClick={showMeTheTunes}>SHOW ME THE TUNES</button>
+      <button className="save-tunes-button" onClick={()=>{}}>SAVE THE TUNES</button>
+      <button className="stop-tunes-button" onClick={(req, ctx)=>(stopAnimation(req, ctx))}>STOP THE TUNES</button>
+      </div>
       <canvas
         id="canvas"
         ref={canvasRef}
         // onClick={()=>(showMeTheTunes())}
-        style={{ outline: '1px solid red', width: '100%' }}
+        style={{ outline: '1px solid white', width: '100%', backgroundColor: props.backgroundChoice }}
       ></canvas>
     </div>
   );
