@@ -40,31 +40,44 @@ function App() {
     audioFiles.forEach((oneFile, index) => {
       fileContainer.push(<option value={index} key={index}>{oneFile[0]}</option>);
     })
-    fileOptions = <select id="file-options">{fileContainer}</select>
+    fileOptions =
+    <div className="file-container">
+      MY FILES
+      <select className="file-options">{fileContainer}</select>
+
+      </div>
   }
 
   return (
     <div className="App">
+      <h1>SHOW ME THE TUNES</h1>
       <div className="file-options-container">
-        <div className="file-container">
+        <div className="file-upload-container">
           <input
             type='file'
             accept="audio/*"
             onChange={(e) => { updateAudioFiles(e) }}
           ></input>
-          {fileOptions}
+
         </div>
         <div className="options-container">
+            {fileOptions}
           <div className="buttons-container">
-            Choose style
-            <select onChange={(e) => { changeVisualType(e) }}>
+            STYLE
+            <select
+              className="type-select-list"
+              onChange={(e) => changeVisualType(e)}
+            >
               <option value="bars">Bars</option>
               <option value="circles">Circles</option>
             </select>
           </div>
           <div className="width">
-            Choose fftSize
-            <select onChange={(e) => { changeFFT(e) }}>
+            FFT SIZE
+            <select
+              className="fft-select-list"
+              onChange={(e) => { changeFFT(e) }}
+            >
               <option value="64">X-Wide</option>
               <option value="128">Wide</option>
               <option value="256">-Less Wide</option>
@@ -75,10 +88,10 @@ function App() {
             </select>
           </div>
           <div className="color">
-            Choose color
+            COLOR
             <select
-              name="colorSelectList"
-              className="colorSelect"
+              name="colorSelect"
+              className="color-select-list"
               onChange={(e) => { changeColor(e) }}
             >
               <option value="black">Black</option>

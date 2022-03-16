@@ -85,7 +85,7 @@ function Canvas(props) {
           ctx.fillRect(x, canvasElement.height - barHeight, barWidth, barHeight);
         }
 
-        //hollowbars: doesn't completely work
+        //hollowbars
         // ctx.rect(x, canvasElement.height - barHeight, barWidth, barHeight);
         // ctx.strokeStyle = "black";
         // ctx.stroke();
@@ -115,9 +115,7 @@ function Canvas(props) {
         //   ctx.stroke();
         x += barWidth + 0.1;
       }
-      // audioControlsRef.onplaying = (event) => {
-      //   requestAnimationFrame(animate)
-      // }
+
       myReq = requestAnimationFrame(animate);
       window.jk_req = myReq;
     }
@@ -125,10 +123,7 @@ function Canvas(props) {
   }
 
   const stopAnimation = function (req, ctx) {
-    console.log("🚀 ~ file: canvas.jsx ~ line 126 ~ stopAnimation ~ req", req)
-    console.log("🚀 ~ file: canvas.jsx ~ line 126 ~ stopAnimation ~ ctx", ctx)
     window.cancelAnimationFrame(req)
-
     ctx?.clearRect(0, 0, 640, 320);
   }
 
