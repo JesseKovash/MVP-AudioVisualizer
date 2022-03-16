@@ -3,12 +3,21 @@ import { useEffect, useState, useRef } from 'react';
 // import { recordingOne, recordingTwo } from '../sampleAudio/recordings.js'
 // import { NewRecording } from '../sampleAudio/NewRecording.mp3'
 function Canvas(props) {
+  console.log('canvas rendering')
   const canvasContainerRef = useRef(null);
   const canvasRef = useRef(null);
   const audioControlsRef = useRef(null);
   const audioElement = document.getElementById("audioControls");
+  const [audioNode, setaudioNode] = useState(false);
+
+  console.log("audioNode at render: ", audioNode)
+  // const [analyser, setanalyser] = useState();
   let myReq;
   let eraseContext;
+  // let audioNode;
+  let analyser = window.jk_visualizer_analyser;
+  // let ctx;
+  let audioContext = window.jk_audioContext;
   // const [audioSrc, setAudioSrc] = useState();
   // const [audioFiles, setAudioFiles] = useState([]);
 
@@ -17,23 +26,39 @@ function Canvas(props) {
   //   setAudioSrc(uploadedFile);
   //   setAudioFiles([...audioFiles, uploadedFile])
   // }
+  console.log('loading: ', analyser)
   const showMeTheTunes = function () {
     console.log('infunction: ', props.visualType);
+    console.log("audioContext at start: ", audioContext)
     const canvasElement = document.getElementById("canvas");
     // canvasElement.width = window.innerWidth * 0.6;
     // canvasElement.height = window.innerHeight * 0.3;
     canvasElement.width = 640;
     canvasElement.height = 320;
+
     const ctx = canvasElement.getContext("2d");
+    window.jk_ctx = ctx;
     eraseContext = ctx;
     audioControlsRef.current.play()
-    const audioContext = new AudioContext();
-    let newAudioSource;
-    let analyser;
-    newAudioSource = audioContext.createMediaElementSource(audioElement);
-    analyser = audioContext.createAnalyser();
-    newAudioSource.connect(analyser);
-    analyser.connect(audioContext.destination);
+    if (!audioContext) {
+      window.jk_audioContext = new AudioContext();
+      audioContext = window.jk_audioContext;
+    }
+    if (!audioNode) {
+      console.log('creating media element')
+      console.log('audioNode in 1: ', audioNode)
+      console.log('audioContext in 1: ', audioContext)
+      let audioSource = audioContext.createMediaElementSource(audioElement);
+      // let newNode = audioContext.createAnalyser();
+      window.jk_visualizer_analyser = audioContext.createAnalyser();
+      analyser = window.jk_visualizer_analyser;
+      audioSource.connect(analyser);
+      analyser.connect(audioContext.destination);
+      // window.jk_visualizer_analyser = analyser;
+      setaudioNode(true);
+      console.log('changedaudio: ', audioNode)
+    }
+
     analyser.fftSize = props.fftChoice;
     const bufferLength = analyser.frequencyBinCount;
     let dataArray = new Uint8Array(bufferLength);
@@ -94,13 +119,17 @@ function Canvas(props) {
       //   requestAnimationFrame(animate)
       // }
       myReq = requestAnimationFrame(animate);
+      window.jk_req = myReq;
     }
     animate()
   }
 
-  const stopAnimation = function(req, ctx) {
+  const stopAnimation = function (req, ctx) {
+    console.log("🚀 ~ file: canvas.jsx ~ line 126 ~ stopAnimation ~ req", req)
+    console.log("🚀 ~ file: canvas.jsx ~ line 126 ~ stopAnimation ~ ctx", ctx)
     window.cancelAnimationFrame(req)
-    ctx.clearRect(0, 0, 640, 320);
+
+    ctx?.clearRect(0, 0, 640, 320);
   }
 
 
@@ -119,7 +148,7 @@ function Canvas(props) {
         // controls
         ref={audioControlsRef}
         src={props.audioSrc}
-        onEnded={()=>stopAnimation(myReq, eraseContext)}
+        onEnded={() => stopAnimation(window.jk_req, window.jk_ctx)}
       ></audio>
       <button onClick={showMeTheTunes}>Show me the sound</button>
       <canvas
