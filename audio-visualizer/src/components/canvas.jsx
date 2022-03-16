@@ -58,7 +58,7 @@ function Canvas(props) {
     analyser.fftSize = props.fftChoice;
     const bufferLength = analyser.frequencyBinCount;
     let dataArray = new Uint8Array(bufferLength);
-    const barWidth = (canvasElement.width / bufferLength);
+    const barWidth = (canvasElement.width/2 / bufferLength);
     let barHeight;
     let x;
 
@@ -66,7 +66,50 @@ function Canvas(props) {
       ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
       x = 0;
       analyser.getByteFrequencyData(dataArray);
+      //left half
+      for (let i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i] * 1.5;
+        const red = 250 * (i / bufferLength);
+        const green = 0;
+        const blue = barHeight + (2 * (i / bufferLength));
+        //bars
+        if (props.visualType === 'bars') {
+          // ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
+          ctx.fillStyle = props.colorChoice;
+          ctx.fillRect(canvasElement.width/2 - x, canvasElement.height - barHeight, barWidth, barHeight);
+        }
 
+        //hollowbars
+        // ctx.rect(x, canvasElement.height - barHeight, barWidth, barHeight);
+        // ctx.strokeStyle = "black";
+        // ctx.stroke();
+
+        // circles
+        if (props.visualType === 'circles') {
+          ctx.beginPath();
+          ctx.arc(canvasElement.width/2 - x, canvasElement.height - barHeight, barWidth * 0.5, 0, 2 * Math.PI);
+          ctx.strokeStyle = props.colorChoice;
+          ctx.stroke();
+          ctx.fillStyle = props.colorChoice;
+          ctx.fill();
+        }
+
+
+        //sine wave
+        //   ctx.beginPath();
+        //   if (i === 0) {
+        //     ctx.moveTo(0, canvasElement.height - barHeight);
+        //   } else {
+        //     ctx.moveTo(x - barWidth, dataArray[i - 1] * 1.5)
+        //   }
+        //   ctx.lineTo(x, canvasElement.height - barHeight);
+
+        //   ctx.stroke();
+        //   ctx.strokeStyle = "black";
+        //   ctx.stroke();
+        x += barWidth + 0.1;
+      }
+      //right half
       for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i] * 1.5;
         const red = 250 * (i / bufferLength);
