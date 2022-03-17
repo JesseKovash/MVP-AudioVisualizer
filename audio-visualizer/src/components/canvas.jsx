@@ -12,6 +12,7 @@ function Canvas(props) {
   const [saveMode, setSaveMode] = useState(false);
 
   const enterName = function(input) {
+    console.log(input)
     if (saveMode) {
       axios.post('http://localhost:2000/new_settings', input, { headers: {
         'Access-Control-Allow-Origin': 'http://localhost:3000'
@@ -197,12 +198,15 @@ function Canvas(props) {
       ref={canvasContainerRef}
     >
       <SaveModal
-        enterName = {enterName.bind(this)}
-        saveMode = {saveMode}
+        enterName={enterName.bind(this)}
+        saveMode={saveMode}
         visualType={props.visualType}
         fftChoice={props.fftChoice}
         colorChoice={props.colorChoice}
         backgroundChoice={props.backgroundChoice}
+        red={props.red}
+        green={props.green}
+        blue={props.blue}
         />
       <audio
         id="audioControls"

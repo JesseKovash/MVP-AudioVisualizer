@@ -18,7 +18,10 @@ function SaveModal(props) {
         "color": props.colorChoice || null,
         "background": props.backgroundChoice || null,
         "shape": props.shape || null,
-        "fill": props.fill || null
+        "fill": props.fill || null,
+        "red": props.red,
+        "green": props.green,
+        "blue": props.blue
       }
       props.enterName(info)
   }

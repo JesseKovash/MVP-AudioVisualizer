@@ -22,10 +22,10 @@ function App() {
   if (recentSave.length === 0) {
     axios.get('http://localhost:2000/settings')
       .then(({data})=> {
-        if (data?.length < 10) {
+        if (data?.length < 8) {
             setRecentSave(data)
           } else {
-            setRecentSave(data.slice(0, 10))
+            setRecentSave(data.slice(0, 8))
           }
       })
       .catch((err)=>{
@@ -34,16 +34,16 @@ function App() {
   }
 
   const changeToPreset = function(presetInfo) {
-    const { background, color, fft, fill, shape, style, blue, green, red} = presetInfo;
+    const { background, color, fft, fill, style, blue, green, red } = presetInfo;
 
     setVisualType(style || 'bars')
     setfftChoice(Number(fft) || 64)
     setColorChoice(color || 'solid')
     setBackgroundChoice(background || 'white')
     setfillChoice(fill || 'solid')
-    setRed(red || 0)
-    setGreen(green || 0)
-    setBlue(blue || 0)
+    setRed(Number(red) || 0)
+    setGreen(Number(green) || 0)
+    setBlue(Number(blue) || 0)
   }
 
   const updateAudioFiles = function (e) {
@@ -52,6 +52,12 @@ function App() {
     setAudioSrc(uploadedFile);
     setAudioFiles([...audioFiles, [name, uploadedFile]])
   };
+
+  const choseUploadedFile = function(e) {
+    console.log('audiosrc: ', audioSrc)
+    console.log('target: ', e.target.value)
+    setAudioSrc(e.target.value);
+  }
 
   const changeVisualType = function (e) {
     let choice = e.target.value;
@@ -77,13 +83,13 @@ function App() {
 
   const changeRGB = function (e) {
     if (e.target.name === 'red') {
-      setRed(e.target.value)
+      setRed(Number(e.target.value))
     }
     if (e.target.name === 'green') {
-      setGreen(e.target.value)
+      setGreen(Number(e.target.value))
     }
     if (e.target.name === 'blue') {
-      setBlue(e.target.value)
+      setBlue(Number(e.target.value))
     }
   }
   // const changeShape = function(e) {
@@ -95,12 +101,16 @@ function App() {
   } else {
     let fileContainer = [];
     audioFiles.forEach((oneFile, index) => {
-      fileContainer.push(<option value={index} key={index}>{oneFile[0]}</option>);
+      fileContainer.push(
+      <option
+        value={oneFile[1]}
+        key={index}
+        >{oneFile[0]}</option>);
     })
     fileOptions =
       <div className="file-container">
         MY FILES
-        <select className="file-options">{fileContainer}</select>
+        <select className="file-options" onChange={(e)=>{choseUploadedFile(e)}}>{fileContainer}</select>
       </div>
   }
 

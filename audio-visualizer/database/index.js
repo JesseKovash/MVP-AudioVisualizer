@@ -8,16 +8,15 @@ mongoose.connect('mongodb://localhost/avsettings')
   })
 
 const SettingSchema = mongoose.Schema({
-  name: 'string',
-  style: 'string',
-  fft: 'string',
-  color: 'string',
-  background: 'string',
-  shape: 'string',
-  fill: 'string',
-  red: 'string',
-  green: 'string',
-  blue: 'string'
+  name: String,
+  style: String,
+  fft: String,
+  color: String,
+  background: String,
+  fill: String,
+  red: Number,
+  green: Number,
+  blue: Number
 });
 
 const SettingsModel = mongoose.model('setting', SettingSchema);
