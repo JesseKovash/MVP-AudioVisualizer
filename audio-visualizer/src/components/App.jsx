@@ -1,8 +1,8 @@
-// import logo from './logo.svg';
-// import './App.css';
+
 import { useState } from 'react';
 import Canvas from "./canvas";
-// import Options from "./options";
+import Recent from "./recent"
+import axios from 'axios';
 
 function App() {
   const [audioSrc, setAudioSrc] = useState();
@@ -15,8 +15,36 @@ function App() {
   const [red, setRed] = useState(0);
   const [green, setGreen] = useState(0);
   const [blue, setBlue] = useState(0)
+  const [recentSave, setRecentSave] = useState([]);
   // const [shapeChoice, setShapeChoice] = useState('rectangle')
   let fileOptions;
+
+  if (recentSave.length === 0) {
+    axios.get('http://localhost:2000/settings')
+      .then(({data})=> {
+        if (data?.length < 10) {
+            setRecentSave(data)
+          } else {
+            setRecentSave(data.slice(0, 10))
+          }
+      })
+      .catch((err)=>{
+        console.log('couldnt retrieve recents', err)
+      })
+  }
+
+  const changeToPreset = function(presetInfo) {
+    const { background, color, fft, fill, shape, style, blue, green, red} = presetInfo;
+
+    setVisualType(style || 'bars')
+    setfftChoice(Number(fft) || 64)
+    setColorChoice(color || 'solid')
+    setBackgroundChoice(background || 'white')
+    setfillChoice(fill || 'solid')
+    setRed(red || 0)
+    setGreen(green || 0)
+    setBlue(blue || 0)
+  }
 
   const updateAudioFiles = function (e) {
     let name = e.target.files[0].name;
@@ -73,79 +101,80 @@ function App() {
       <div className="file-container">
         MY FILES
         <select className="file-options">{fileContainer}</select>
-
       </div>
   }
 
   return (
     <div className="App">
       <h1>SHOW ME THE TUNES</h1>
-      <div className="file-options-container">
-        <div className="file-upload-container">
-          ADD TUNES
-          <input
-            className="file-upload-button"
-            type='file'
-            accept="audio/*"
-            onChange={(e) => { updateAudioFiles(e) }}
-          ></input>
-        </div>
-        <div className="options-container">
-          {fileOptions}
-          <div className="buttons-container">
-            STYLE
-            <select
-              className="type-select-list"
-              onChange={(e) => changeVisualType(e)}
-            >
-              <option value="bars">Bars</option>
-              <option value="circles">Circles</option>
-            </select>
-          </div>
-          <div className="width">
-            FFT SIZE
-            <select
-              className="fft-select-list"
-              onChange={(e) => { changeFFT(e) }}
-            >
-              <option value="64">X-Wide</option>
-              <option value="128">Wide</option>
-              <option value="256">-Less Wide</option>
-              <option value="512">Medium</option>
-              <option value="1024">Less Narrow</option>
-              <option value="2048">Narrow</option>
-              <option value="4096">X-Narrow</option>
-            </select>
-          </div>
-          <div className="color">
-            COLOR
-            <select
-              name="colorSelect"
-              className="color-select-list"
-              onChange={(e) => { changeColor(e) }}
-            >
-              <option value="solid">Solid</option>
-              <option value="dynamic">Dynamic</option>
-            </select>
-          </div>
-          <div className="color">
-            BACKGROUND
-            <select
-              name="colorSelect"
-              className="background-select-list"
-              onChange={(e) => { changeBackground(e) }}
-            >
-              <option value="white">White</option>
-              <option value="black">Black</option>
-              <option value="gray">Gray</option>
-              <option value="red">Red</option>
-              <option value="green">Green</option>
-              <option value="blue">Blue</option>
-              <option value="purple">Purple</option>
-              <option value="yellow">Yellow</option>
-            </select>
-          </div>
-          {/* <div className="shape">
+      <div className="options-saved-container">
+        <div className="main-options-container">
+          <div className="file-options-container">
+            <div className="file-upload-container">
+              ADD TUNES
+              <input
+                className="file-upload-button"
+                type='file'
+                accept="audio/*"
+                onChange={(e) => { updateAudioFiles(e) }}
+              ></input>
+            </div>
+            <div className="options-container">
+              {fileOptions}
+              <div className="buttons-container">
+                STYLE
+                <select
+                  className="type-select-list"
+                  onChange={(e) => changeVisualType(e)}
+                >
+                  <option value="bars">Bars</option>
+                  <option value="circles">Circles</option>
+                </select>
+              </div>
+              <div className="width">
+                FFT SIZE
+                <select
+                  className="fft-select-list"
+                  onChange={(e) => { changeFFT(e) }}
+                >
+                  <option value="64">X-Wide</option>
+                  <option value="128">Wide</option>
+                  <option value="256">-Less Wide</option>
+                  <option value="512">Medium</option>
+                  <option value="1024">Less Narrow</option>
+                  <option value="2048">Narrow</option>
+                  <option value="4096">X-Narrow</option>
+                </select>
+              </div>
+              <div className="color">
+                COLOR
+                <select
+                  name="colorSelect"
+                  className="color-select-list"
+                  onChange={(e) => { changeColor(e) }}
+                >
+                  <option value="solid">Solid</option>
+                  <option value="dynamic">Dynamic</option>
+                </select>
+              </div>
+              <div className="color">
+                BACKGROUND
+                <select
+                  name="colorSelect"
+                  className="background-select-list"
+                  onChange={(e) => { changeBackground(e) }}
+                >
+                  <option value="white">White</option>
+                  <option value="black">Black</option>
+                  <option value="gray">Gray</option>
+                  <option value="red">Red</option>
+                  <option value="green">Green</option>
+                  <option value="blue">Blue</option>
+                  <option value="purple">Purple</option>
+                  <option value="yellow">Yellow</option>
+                </select>
+              </div>
+              {/* <div className="shape">
             SHAPE
             <select
               name="shapeSelect"
@@ -157,55 +186,64 @@ function App() {
               <option value="round">Round</option>
             </select>
           </div> */}
-          <div className="fill">
-            CHOOSE FILL
-            <select
-              name="fillSelect"
-              className="fill-select-list"
-              onChange={(e) => { changeFill(e) }}
-            >
-              <option value="solid">Solid</option>
-              <option value="hollow">Hollow</option>
-            </select>
+              <div className="fill">
+                CHOOSE FILL
+                <select
+                  name="fillSelect"
+                  className="fill-select-list"
+                  onChange={(e) => { changeFill(e) }}
+                >
+                  <option value="solid">Solid</option>
+                  <option value="hollow">Hollow</option>
+                </select>
+              </div>
+              <div>
+                <label className="color-slider-label color-slider-label-red">Red</label>
+                <input
+                  className="color-slider-bar"
+                  name="red"
+                  id="typeinp"
+                  type="range"
+                  min="0"
+                  max="250"
+                  step="1"
+                  onChange={(e) => { changeRGB(e) }}
+                ></input>
+                <p className="color-values">{red}</p>
+                <label className="color-slider-label">Green</label>
+                <input
+                  className="color-slider-bar"
+                  name="green"
+                  id="typeinp"
+                  type="range"
+                  min="0"
+                  max="250"
+                  step="1"
+                  onChange={(e) => { changeRGB(e) }}
+                ></input>
+                <p className="color-values">{green}</p>
+                <label className="color-slider-label">Blue</label>
+                <input
+                  className="color-slider-bar"
+                  name="blue"
+                  id="typeinp"
+                  type="range"
+                  min="0"
+                  max="250"
+                  step="1"
+                  onChange={(e) => { changeRGB(e) }}
+                ></input>
+                <p className="color-values">{blue}</p>
+              </div>
+            </div>
           </div>
-          <div>
-            <label className="color-slider-label color-slider-label-red">Red</label>
-            <input
-              className="color-slider-bar"
-              name="red"
-              id="typeinp"
-              type="range"
-              min="0"
-              max="250"
-              step="1"
-              onChange={(e)=>{changeRGB(e)}}
-            ></input>
-            <p className="color-values">{red}</p>
-            <label className="color-slider-label">Green</label>
-            <input
-              className="color-slider-bar"
-              name="green"
-              id="typeinp"
-              type="range"
-              min="0"
-              max="250"
-              step="1"
-              onChange={(e)=>{changeRGB(e)}}
-            ></input>
-            <p className="color-values">{green}</p>
-            <label className="color-slider-label">Blue</label>
-            <input
-              className="color-slider-bar"
-              name="blue"
-              id="typeinp"
-              type="range"
-              min="0"
-              max="250"
-              step="1"
-              onChange={(e)=>{changeRGB(e)}}
-            ></input>
-            <p className="color-values">{blue}</p>
-          </div>
+        </div>
+        <div className="recently-saved-container">
+          <h3>PRESETS</h3>
+          <Recent
+            recentSave={recentSave}
+            changeToPreset={changeToPreset.bind(this)}
+          />
         </div>
       </div>
       <Canvas

@@ -14,7 +14,10 @@ const SettingSchema = mongoose.Schema({
   color: 'string',
   background: 'string',
   shape: 'string',
-  fill: 'string'
+  fill: 'string',
+  red: 'string',
+  green: 'string',
+  blue: 'string'
 });
 
 const SettingsModel = mongoose.model('setting', SettingSchema);

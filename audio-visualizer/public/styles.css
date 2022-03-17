@@ -5,6 +5,53 @@ body{
 
 h1 {
   color: white;
+  padding-left: 10px;
+  padding-bottom: 15px;
+}
+
+h3 {
+  color: white;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.options-saved-container {
+  display: flex;
+}
+
+.main-options-container{
+  width: 70%;
+  padding-left: 10px;
+}
+
+.recently-saved-container{
+  width: 30%;
+  padding: 10px;
+}
+
+.recent-container {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.recent-option {
+  /* text-align: center; */
+  font-size: 1.2rem;
+  /* text-decoration: underline gray; */
+  padding: 3px 0 3px 10px;
+}
+
+/* .recent-option + .recent-option {
+  border-top: 1px solid gray;
+} */
+
+.recent-option:hover{
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline black;
 }
 
 .buttons-container, .width, .color, .file-container, .shape, .fill, .file-upload-container {

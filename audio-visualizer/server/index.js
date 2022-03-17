@@ -11,8 +11,6 @@ app.use(express.json());
 app.use(cors());
 
 app.post('/new_settings', (req, res) => {
-  console.log('inpost');
-  console.log('setting: ', SettingsModel)
   SettingsModel.findOneAndUpdate({name: req.body.name}, req.body, {upsert: true})
     .then((results)=> {
       res.status(201).send(results);
@@ -23,7 +21,6 @@ app.post('/new_settings', (req, res) => {
 })
 
 app.get('/settings', (req, res) => {
-  console.log('inget')
   SettingsModel.find({})
     .then((results) => {
       res.status(200).send(results);

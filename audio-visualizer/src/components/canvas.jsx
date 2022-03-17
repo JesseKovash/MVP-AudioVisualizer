@@ -36,7 +36,6 @@ function Canvas(props) {
     const canvasElement = document.getElementById("canvas");
     canvasElement.width = canvasElement.offsetWidth || 640;
     canvasElement.height = canvasElement.width * 0.56;
-    console.log(canvasElement.offsetWidth)
 
     const ctx = canvasElement.getContext("2d");
     window.jk_ctx = ctx;
@@ -59,7 +58,6 @@ function Canvas(props) {
     const bufferLength = analyser.frequencyBinCount;
     let dataArray = new Uint8Array(bufferLength);
     const barWidth = ((canvasElement.width/2) / bufferLength);
-    console.log(canvasElement.width / 2, bufferLength, barWidth)
     let barHeight;
     let x;
 
