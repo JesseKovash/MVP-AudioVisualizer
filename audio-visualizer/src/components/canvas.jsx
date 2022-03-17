@@ -126,11 +126,11 @@ function Canvas(props) {
         let red, green, blue;
         barHeight = dataArray[i] * 1.5;
         if (props.colorChoice === 'dynamic') {
-          red = props.red * ((i + 2) / bufferLength * 2);
+          red = props.red * ((i + 2) / bufferLength * 1.75);
           // green = props.green;
-          green = props.green * ((i + 2) / bufferLength * 2);
+          green = props.green * ((i + 2) / bufferLength * 1.75);
           // blue = barHeight + (5 * (i / bufferLength));
-          blue = props.blue * ((i + 2) / bufferLength * 2)
+          blue = props.blue * ((i + 2) / bufferLength * 1.75)
         } else {
           red = props.red;
           green = props.green;

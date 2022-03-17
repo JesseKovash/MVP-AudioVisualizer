@@ -127,6 +127,7 @@ function App() {
                   className="type-select-list"
                   onChange={(e) => changeVisualType(e)}
                 >
+                  <option value="none" defaultValue disabled hidden>Select</option>
                   <option value="bars">Bars</option>
                   <option value="circles">Circles</option>
                 </select>
@@ -137,6 +138,7 @@ function App() {
                   className="fft-select-list"
                   onChange={(e) => { changeFFT(e) }}
                 >
+                  <option value="none" defaultValue disabled hidden>Select</option>
                   <option value="64">X-Wide</option>
                   <option value="128">Wide</option>
                   <option value="256">-Less Wide</option>
@@ -153,6 +155,7 @@ function App() {
                   className="color-select-list"
                   onChange={(e) => { changeColor(e) }}
                 >
+                  <option value="none" defaultValue  disabled hidden>Select</option>
                   <option value="solid">Solid</option>
                   <option value="dynamic">Dynamic</option>
                 </select>
@@ -164,6 +167,7 @@ function App() {
                   className="background-select-list"
                   onChange={(e) => { changeBackground(e) }}
                 >
+                  <option value="none" defaultValue  disabled hidden>Select</option>
                   <option value="white">White</option>
                   <option value="black">Black</option>
                   <option value="gray">Gray</option>
@@ -193,6 +197,7 @@ function App() {
                   className="fill-select-list"
                   onChange={(e) => { changeFill(e) }}
                 >
+                  <option value="none" defaultValue  disabled hidden>Select</option>
                   <option value="solid">Solid</option>
                   <option value="hollow">Hollow</option>
                 </select>
