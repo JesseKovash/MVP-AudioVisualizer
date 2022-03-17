@@ -3,10 +3,13 @@ body{
  font-family: sans-serif;
 }
 
-h1 {
+.header {
   color: white;
   padding-left: 10px;
-  padding-bottom: 15px;
+  font-size: 2rem;
+  /* padding-bottom: 15px; */
+  margin-top: 37px;
+  font-weight: bold;
 }
 
 h3 {
@@ -17,8 +20,20 @@ h3 {
   font-size: 1.8rem;
 }
 
+img {
+  width: 400px;
+  margin: 0 auto;
+}
+
 .options-saved-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  /* justify-content: ; */
 }
 
 .main-options-container{

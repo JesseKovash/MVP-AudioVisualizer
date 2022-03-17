@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Canvas from "./canvas";
 import Recent from "./recent"
 import axios from 'axios';
+import photo from '/Users/jessekovash/Desktop/Coding/SEI/seniorPhase/MVP/MVP-AudioVisualizer/audio-visualizer/src/components/images/Stainless-Steel-Sound-Wave-No-Background.svg';
 
 function App() {
   const [audioSrc, setAudioSrc] = useState();
@@ -54,8 +55,6 @@ function App() {
   };
 
   const choseUploadedFile = function(e) {
-    console.log('audiosrc: ', audioSrc)
-    console.log('target: ', e.target.value)
     setAudioSrc(e.target.value);
   }
 
@@ -109,14 +108,19 @@ function App() {
     })
     fileOptions =
       <div className="file-container">
-        MY FILES
-        <select className="file-options" onChange={(e)=>{choseUploadedFile(e)}}>{fileContainer}</select>
+        MY TUNES
+        <select
+        className="file-options"
+        onChange={(e)=>{choseUploadedFile(e)}}>{fileContainer}
+        </select>
       </div>
   }
-
   return (
     <div className="App">
-      <h1>SHOW ME THE TUNES</h1>
+      <div className="header-container">
+      <div className="header">SHOW ME THE TUNES</div>
+      <img alt="soundwave" src={photo}></img>
+      </div>
       <div className="options-saved-container">
         <div className="main-options-container">
           <div className="file-options-container">
