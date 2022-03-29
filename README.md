@@ -9,6 +9,7 @@
 * Color allow you to choose between a solid color or a dynamic color based on the sounds frequency
 * Choose different background colors
 * Bars and circles can be filled or hollow
+* RGB coloring lets you choose an almost infinite number of colors
 * Save settings adds your favorite settings to the database so they can be retrieved later
 * Click on any of the presets to see some inspiration
 
