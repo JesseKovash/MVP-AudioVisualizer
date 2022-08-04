@@ -21,17 +21,4 @@ const SettingSchema = mongoose.Schema({
 
 const SettingsModel = mongoose.model('setting', SettingSchema);
 
-//create connection next
-
-
 module.exports.SettingsModel = SettingsModel;
-
-// {
-//   "name": 'bubbles',
-//   "style": 'square',
-//   "fft": '64',
-//   "color": 'black',
-//   "background": 'white',
-//   "shape": null,
-//   "fill": null
-// }

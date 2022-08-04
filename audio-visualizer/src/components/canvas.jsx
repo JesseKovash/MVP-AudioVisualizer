@@ -1,7 +1,6 @@
-import App from './App.jsx';
 import SaveModal from './savemodal.jsx';
 import axios from 'axios';
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 function Canvas(props) {
   const canvasContainerRef = useRef(null);
@@ -12,10 +11,12 @@ function Canvas(props) {
   const [saveMode, setSaveMode] = useState(false);
 
   const enterName = function(input) {
-    console.log(input)
     if (saveMode) {
-      axios.post('http://localhost:2000/new_settings', input, { headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
+      // axios.post('http://localhost:2000/new_settings', input, { headers: {
+      //   'Access-Control-Allow-Origin': 'http://localhost:3000'
+      // } })
+      axios.post('/new_settings', input, { headers: {
+        'Access-Control-Allow-Origin': '*'
       } })
         .then((results) => {
           setSaveMode(false);
@@ -28,7 +29,7 @@ function Canvas(props) {
     }
   }
   let myReq;
-  let eraseContext;
+  // let eraseContext;
   let analyser = window.jk_visualizer_analyser;
   let audioContext = window.jk_audioContext;
 
@@ -40,7 +41,7 @@ function Canvas(props) {
 
     const ctx = canvasElement.getContext("2d");
     window.jk_ctx = ctx;
-    eraseContext = ctx;
+    // eraseContext = ctx;
     audioControlsRef.current.play()
     if (!audioContext) {
       window.jk_audioContext = new AudioContext();
