@@ -12,8 +12,11 @@ function Canvas(props) {
 
   const enterName = function(input) {
     if (saveMode) {
-      axios.post('http://localhost:2000/new_settings', input, { headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
+      // axios.post('http://localhost:2000/new_settings', input, { headers: {
+      //   'Access-Control-Allow-Origin': 'http://localhost:3000'
+      // } })
+      axios.post('/new_settings', input, { headers: {
+        'Access-Control-Allow-Origin': '*'
       } })
         .then((results) => {
           setSaveMode(false);
