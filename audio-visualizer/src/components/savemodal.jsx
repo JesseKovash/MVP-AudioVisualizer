@@ -1,9 +1,7 @@
 
 import { useState } from 'react';
-import Canvas from "./canvas"
 
 function SaveModal(props) {
-  // const [visibleModal, setVisibleModal] = useState(true);
   const [nameText, setNameText] = useState('');
   const nameUpdate = function (e) {
     setNameText(e.target.value)

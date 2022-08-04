@@ -1,6 +1,4 @@
 const express = require('express');
-const { find, findOneAndUpdate } = require('mongoose');
-const axios = require('axios');
 const cors = require('cors');
 const { SettingsModel } = require('../database/index.js');
 const app = express();
@@ -11,7 +9,6 @@ app.use(express.json());
 app.use(cors());
 
 app.post('/new_settings', (req, res) => {
-  console.log(req.body);
   SettingsModel.findOneAndUpdate({name: req.body.name}, req.body, {upsert: true})
     .then((results)=> {
       res.status(201).send(results);
