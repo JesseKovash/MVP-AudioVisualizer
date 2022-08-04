@@ -9,7 +9,7 @@ import RGBSliderOption from "./Inputs/RGBSliderOption";
 import StyleOption from "./Inputs/StyleOption";
 import FillOption from "./Inputs/FillOption";
 import axios from "axios";
-import photo from "/Users/jessekovash/Desktop/Coding/SEI/seniorPhase/MVP/MVP-AudioVisualizer/audio-visualizer/src/components/images/Stainless-Steel-Sound-Wave-No-Background.svg";
+import photo from "../images/Stainless-Steel-Sound-Wave-No-Background.svg";
 
 function App() {
   const [audioSrc, setAudioSrc] = useState();
@@ -23,7 +23,6 @@ function App() {
   const [green, setGreen] = useState(0);
   const [blue, setBlue] = useState(0);
   const [recentSave, setRecentSave] = useState([]);
-  let fileOptions;
 
   if (recentSave.length === 0) {
     axios
