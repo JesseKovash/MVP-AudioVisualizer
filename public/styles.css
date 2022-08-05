@@ -1,0 +1,158 @@
+body{
+ background-color: black;
+ font-family: sans-serif;
+}
+
+.header {
+  color: white;
+  padding-left: 10px;
+  font-size: 2rem;
+  /* padding-bottom: 15px; */
+  margin-top: 37px;
+  font-weight: bold;
+}
+
+h3 {
+  color: white;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+img {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.options-saved-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  /* justify-content: ; */
+}
+
+.main-options-container{
+  width: 70%;
+  padding-left: 10px;
+}
+
+.recently-saved-container{
+  width: 30%;
+  padding: 10px;
+}
+
+.recent-container {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.recent-option {
+  /* text-align: center; */
+  font-size: 1.2rem;
+  /* text-decoration: underline gray; */
+  padding: 3px 0 3px 10px;
+}
+
+/* .recent-option + .recent-option {
+  border-top: 1px solid gray;
+} */
+
+.recent-option:hover{
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline black;
+}
+
+.buttons-container, .width, .color, .file-container, .shape, .fill, .file-upload-container {
+  color: white;
+  font-size: 1.5rem;
+  position: relative;
+  padding: 5px 0;
+}
+
+.type-select-list, .fft-select-list, .color-select-list, .file-options, .background-select-list, .shape-select-list, .fill-select-list, .file-upload-button {
+  position: absolute;
+  color: black;
+  left: 200px;
+  height: 1.5rem;
+  width: 150px;
+  border-radius: 5px;
+}
+
+.show-tunes-button, .save-tunes-button, .stop-tunes-button, .modal-button  {
+  height: 35px;
+  width: 200px;
+  margin: 10px 10px 10px 0;
+  border-radius: 5px;
+  border: none;
+}
+
+.show-tunes-button:hover, .save-tunes-button:hover, .stop-tunes-button:hover, .modal-button:hover {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+}
+
+.color-slider-label {
+  color: white;
+  padding: 0 5px 0 25px;
+}
+
+.color-slider-label-red {
+  padding-left: 5px;
+}
+
+.color-values {
+  color: white;
+  display: inline-block;
+  padding-left: 5px;
+}
+
+/* .color-slider-bar {
+
+} */
+
+.modal-button {
+  border: 1px solid black;
+}
+.canvas-buttons {
+
+}
+
+.canvas-container {
+  position: relative;
+}
+
+.save-modal-container {
+  background-color: white;
+  height: 150px;
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  outline: solid black 1px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 1px 1px 16px 1px grey;
+}
+
+.modal-input{
+width: 75%;
+}
+.file-options {
+
+}
+
+#canvas {
+  background-color: white;
+}
