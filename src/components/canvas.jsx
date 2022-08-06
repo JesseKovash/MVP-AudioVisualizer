@@ -23,6 +23,7 @@ function Canvas(props) {
         })
         .catch((err)=> {
           console.log(err)
+          setSaveMode(false);
         })
     } else {
       setSaveMode(true);
