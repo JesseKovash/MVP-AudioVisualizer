@@ -30,6 +30,7 @@ function App() {
       .get("/settings")
       .then(({ data }) => {
         if (data?.length < 8) {
+          console.log((data))
           setRecentSave(data);
         } else {
           setRecentSave(data.slice(0, 8));
