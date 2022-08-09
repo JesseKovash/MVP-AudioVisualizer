@@ -13,12 +13,12 @@ function Canvas(props) {
   const enterName = function(input) {
     if (saveMode) {
       setSaveMode(false);
-      // axios.post('http://localhost:2000/new_settings', input, { headers: {
-      //   'Access-Control-Allow-Origin': 'http://localhost:3000'
-      // } })
-      axios.post('/new_settings', input, { headers: {
-        'Access-Control-Allow-Origin': '*'
+      axios.post('http://localhost:2000/new_settings', input, { headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000'
       } })
+      // axios.post('/new_settings', input, { headers: {
+      //   'Access-Control-Allow-Origin': '*'
+      // } })
         .then((results) => {
           // setSaveMode(false);
         })
@@ -227,7 +227,7 @@ function Canvas(props) {
         id="canvas"
         ref={canvasRef}
         // onClick={()=>(showMeTheTunes())}
-        style={{ outline: '1px solid white', width: '100%', backgroundColor: props.backgroundChoice }}
+        style={{ outline: '1px solid white', backgroundColor: props.backgroundChoice }}
       ></canvas>
     </div>
   );

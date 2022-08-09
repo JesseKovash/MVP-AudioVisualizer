@@ -3,8 +3,8 @@ const cors = require('cors');
 const axios = require('axios');
 // const { SettingsModel } = require('../database/index.js');
 const app = express();
-// const port = 2000;
-const port = process.env.PORT || 3001;
+const port = 2000;
+// const port = process.env.PORT || 3001;
 const path = require("path");
 app.use(express.static(path.resolve(__dirname, '../build')))
 app.use(express.json());

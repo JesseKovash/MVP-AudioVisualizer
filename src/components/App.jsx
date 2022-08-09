@@ -26,8 +26,8 @@ function App() {
 
   if (recentSave.length === 0) {
     axios
-      // .get("http://localhost:2000/settings")
-      .get("/settings")
+      .get("http://localhost:2000/settings")
+      // .get("/settings")
       .then(({ data }) => {
         if (data?.length < 8) {
           setRecentSave(data);
@@ -142,13 +142,15 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="recently-saved-container">
-          <h3>PRESETS</h3>
-          <Recent
-            recentSave={recentSave}
-            changeToPreset={changeToPreset.bind(this)}
-          />
-        </div>
+        {recentSave.length > 0 ? (
+          <div className="recently-saved-container">
+            <h3>PRESETS</h3>
+            <Recent
+              recentSave={recentSave}
+              changeToPreset={changeToPreset.bind(this)}
+            />
+          </div>
+        ) : null}
       </div>
       <Canvas
         audioSrc={audioSrc}
