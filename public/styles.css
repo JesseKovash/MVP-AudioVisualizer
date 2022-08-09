@@ -82,6 +82,7 @@ img {
   left: 200px;
   height: 1.5rem;
   width: 25%;
+  min-width: 125px;
   border-radius: 5px;
 }
 
@@ -177,26 +178,16 @@ width: 75%;
 
 
 @media screen and (max-width: 1045px) {
-
-
   #canvas {
     width: 100%;
   }
 }
 
 @media screen and (max-width: 700px) {
-  .show-tunes-button, .save-tunes-button, .stop-tunes-button, .modal-button  {
-    height: 35px;
-    width: 150px;
-    margin: 10px 10px 10px 0;
-    border-radius: 5px;
-    border: none;
-  }
 
   .canvas-buttons {
-    width: 430px;
+    /* width: 430px; */
     display: flex;
-    /* flex-direction: column; */
     flex-wrap: wrap;
     align-items: center;
   }

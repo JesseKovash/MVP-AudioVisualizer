@@ -58,6 +58,8 @@ function Canvas(props) {
       setaudioNode(true);
     }
 
+    canvasElement.scrollIntoView({ behavior: 'smooth', block: 'center'});
+
     analyser.fftSize = props.fftChoice;
     const bufferLength = analyser.frequencyBinCount;
     let dataArray = new Uint8Array(bufferLength);
