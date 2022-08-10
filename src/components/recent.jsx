@@ -10,6 +10,7 @@ function Recent({ recentSave, changeToPreset }) {
 
   return (
     <div className="recent-container">
+      <h3>PRESETS</h3>
       {recentlySaved}
     </div>
   );

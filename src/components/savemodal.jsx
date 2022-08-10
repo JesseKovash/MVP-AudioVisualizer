@@ -37,9 +37,9 @@ function SaveModal(props) {
   }
 
   return (
-    <div>
+    <>
       {modal}
-    </div>
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Canvas from "./canvas";
 import Recent from "./recent";
 import FileOption from "./Inputs/FileOption";
@@ -9,6 +9,7 @@ import RGBSliderOption from "./Inputs/RGBSliderOption";
 import StyleOption from "./Inputs/StyleOption";
 import FillOption from "./Inputs/FillOption";
 import axios from "axios";
+import "animate.css";
 import photo from "../images/Stainless-Steel-Sound-Wave-No-Background.svg";
 
 function App() {
@@ -23,21 +24,46 @@ function App() {
   const [green, setGreen] = useState(0);
   const [blue, setBlue] = useState(0);
   const [recentSave, setRecentSave] = useState([]);
+  const [showRecent, setShowRecent] = useState(false);
 
-  if (recentSave.length === 0) {
+  // if (recentSave.length === 0) {
+  //   axios
+  //     .get("http://localhost:2000/settings")
+  //     // .get("/settings")
+  //     .then(({ data }) => {
+  //       if (data?.length < 8) {
+  //         setRecentSave(data);
+  //       } else {
+  //         setRecentSave(data.slice(0, 8));
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log("couldnt retrieve recents", err);
+  //     });
+  // }
+
+  useEffect(() => {
+    retrievePresets()
+  }, []);
+
+  useEffect(() => {
+    retrievePresets()
+  }, [showRecent])
+
+  const retrievePresets = function() {
     axios
-      // .get("http://localhost:2000/settings")
-      .get("/settings")
-      .then(({ data }) => {
-        if (data?.length < 8) {
-          setRecentSave(data);
-        } else {
-          setRecentSave(data.slice(0, 8));
-        }
-      })
-      .catch((err) => {
-        console.log("couldnt retrieve recents", err);
-      });
+    // .get("http://localhost:2000/settings")
+    .get("/settings")
+    .then(({ data }) => {
+      if (data?.length < 8) {
+        setRecentSave(data);
+      } else {
+        setRecentSave(data.slice(0, 8));
+      }
+    })
+    .catch((err) => {
+      console.log("couldnt retrieve recents", err);
+    });
   }
 
   const changeToPreset = function (presetInfo) {
@@ -52,6 +78,7 @@ function App() {
     setRed(Number(red) || 0);
     setGreen(Number(green) || 0);
     setBlue(Number(blue) || 0);
+    setShowRecent(false);
   };
 
   const updateAudioFiles = function (e) {
@@ -99,6 +126,10 @@ function App() {
     }
   };
 
+  const showPresets = function () {
+    setShowRecent(!showRecent);
+  };
+
   return (
     <div className="App">
       <div className="header-container">
@@ -106,53 +137,56 @@ function App() {
         <img alt="soundwave" src={photo}></img>
       </div>
       <div className="options-saved-container">
-        <div className="main-options-container">
-          <div className="file-options-container">
-            <div className="file-upload-container">
-              ADD TUNES
-              <input
-                className="file-upload-button"
-                type="file"
-                accept="audio/*"
-                onChange={(e) => {
-                  updateAudioFiles(e);
-                }}
-              ></input>
-            </div>
-            <div className="options-container">
-              {audioFiles.length === 0 ? null : (
-                <FileOption
-                  audioFiles={audioFiles}
-                  choseUploadedFile={choseUploadedFile}
-                ></FileOption>
-              )}
-              <StyleOption changeVisualType={changeVisualType}></StyleOption>
-              <WidthOption changeFFT={changeFFT}></WidthOption>
-              <ColorOption changeColor={changeColor}></ColorOption>
-              <BackgroundColorOption
-                changeBackground={changeBackground}
-              ></BackgroundColorOption>
-              <FillOption changeFill={changeFill}></FillOption>
-              <RGBSliderOption
-                changeRGB={changeRGB}
-                red={red}
-                blue={blue}
-                green={green}
-              ></RGBSliderOption>
+        {!showRecent ? (
+          <div className="main-options-container">
+            <div className="file-options-container">
+              <div className="file-upload-container">
+                ADD TUNES
+                <input
+                  className="file-upload-button"
+                  type="file"
+                  accept="audio/*"
+                  onChange={(e) => {
+                    updateAudioFiles(e);
+                  }}
+                ></input>
+              </div>
+              <div className="options-container">
+                {audioFiles.length === 0 ? null : (
+                  <FileOption
+                    audioFiles={audioFiles}
+                    choseUploadedFile={choseUploadedFile}
+                  ></FileOption>
+                )}
+                <StyleOption changeVisualType={changeVisualType}></StyleOption>
+                <WidthOption changeFFT={changeFFT}></WidthOption>
+                <ColorOption changeColor={changeColor}></ColorOption>
+                <BackgroundColorOption
+                  changeBackground={changeBackground}
+                ></BackgroundColorOption>
+                <FillOption changeFill={changeFill}></FillOption>
+                <RGBSliderOption
+                  changeRGB={changeRGB}
+                  red={red}
+                  blue={blue}
+                  green={green}
+                ></RGBSliderOption>
+              </div>
             </div>
           </div>
-        </div>
-        {recentSave.length > 0 ? (
-          <div className="recently-saved-container">
-            <h3>PRESETS</h3>
+        ) : null}
+        {recentSave.length > 0 && showRecent ? (
+          <div className="recently-saved-container animate__animated fadeInUp">
+            <div className="modal-background" onClick={showPresets}></div>
             <Recent
               recentSave={recentSave}
               changeToPreset={changeToPreset.bind(this)}
             />
           </div>
         ) : null}
-      </div>
+
       <Canvas
+        recentSave={recentSave}
         audioSrc={audioSrc}
         visualType={visualType}
         fftChoice={fftChoice}
@@ -162,7 +196,9 @@ function App() {
         red={red}
         green={green}
         blue={blue}
+        showPresets={showPresets}
       />
+    </div>
     </div>
   );
 }

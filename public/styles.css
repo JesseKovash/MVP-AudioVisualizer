@@ -26,42 +26,48 @@ img {
 }
 
 .options-saved-container {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+  width: 70%;
 }
 
 .header-container {
   display: flex;
-  /* justify-content: ; */
 }
 
 .main-options-container{
-  width: 70%;
+  /* width: 70%; */
   padding-left: 10px;
 }
 
 .recently-saved-container{
   width: 30%;
   padding: 10px;
+  position: relative;
+  transition: all 0.5s ease-out;
+}
+
+.modal-background {
+  background-color: gray;
+  width: 400px;
+  height: 350px;
 }
 
 .recent-container {
   background-color: white;
   border-radius: 5px;
   padding: 10px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.recent-container h3 {
+  color: black;
 }
 
 .recent-option {
-  /* text-align: center; */
   font-size: 1.2rem;
-  /* text-decoration: underline gray; */
   padding: 3px 0 3px 10px;
 }
-
-/* .recent-option + .recent-option {
-  border-top: 1px solid gray;
-} */
 
 .recent-option:hover{
   font-weight: bold;
@@ -87,19 +93,20 @@ img {
   border-radius: 5px;
 }
 
-.show-tunes-button, .save-tunes-button, .stop-tunes-button, .modal-button  {
+.show-tunes-button, .save-tunes-button, .stop-tunes-button, .preset-tunes-button, .modal-button  {
   height: 35px;
-  width: 200px;
+  width: 193px;
   margin: 10px 10px 10px 0;
   border-radius: 5px;
   border: none;
 }
 
-.show-tunes-button:hover, .save-tunes-button:hover, .stop-tunes-button:hover, .modal-button:hover {
+.show-tunes-button:hover, .save-tunes-button:hover, .stop-tunes-button:hover, .preset-tunes-button:hover, .modal-button:hover {
   background-color: black;
   border: 1px solid white;
   color: white;
   cursor: pointer;
+  transition: color 0.3s;
 }
 
 .rgb-container {
@@ -136,12 +143,10 @@ max-width: 250px;
 .modal-button {
   border: 1px solid black;
 }
-.canvas-buttons {
-
-}
 
 .canvas-container {
   position: relative;
+  padding: 0 10px;
 }
 
 .save-modal-container {
@@ -149,9 +154,9 @@ max-width: 250px;
   height: 150px;
   width: 300px;
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  left: 5%;
+  top: 19%;
+  /* transform: translate(-50%, -50%); */
   outline: solid black 1px;
   border-radius: 5px;
   display: flex;

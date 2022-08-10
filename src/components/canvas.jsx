@@ -196,7 +196,6 @@ function Canvas(props) {
     ctx?.clearRect(0, 0, 640, 320);
   }
 
-
   return (
     <div
       className="canvas-container"
@@ -224,11 +223,11 @@ function Canvas(props) {
         <button className="show-tunes-button" onClick={showMeTheTunes}>SHOW ME THE TUNES</button>
         <button className="stop-tunes-button" onClick={(req, ctx) => (stopAnimation(req, ctx))}>STOP THE TUNES</button>
         <button className="save-tunes-button" onClick={enterName}>SAVE SETTINGS</button>
+        {props.recentSave.length > 0 ? <button className="preset-tunes-button" onClick={props.showPresets}>PRESETS</button> : null}
       </div>
       <canvas
         id="canvas"
         ref={canvasRef}
-        // onClick={()=>(showMeTheTunes())}
         style={{ outline: '1px solid white', backgroundColor: props.backgroundChoice }}
       ></canvas>
     </div>
